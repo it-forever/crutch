@@ -1,0 +1,8 @@
+#!/bin/bash
+NOW=$(date +"%m-%d-%Y-%H-%M")
+x=`ping -c1 IP-gateway 2>&1 | grep unknown`
+x=`ping -c1 IP-gateway 2>&1 | grep Unreachable`
+if [ ! "$x" = "" ]; then
+        echo "$NOW.It's down!! Attempting to restart."  >> /var/log/log_crutch.txt
+        systemctl restart network.service
+fi
